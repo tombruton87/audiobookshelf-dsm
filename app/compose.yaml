@@ -1,0 +1,80 @@
+# Audiobookshelf, as the Synology package runs it: the compose project in the
+# audiobookshelf shared folder. The setup container writes .env beside this.
+# Its database (listening progress, users, settings) lives in the
+# audiobookshelf_config volume and covers and item details in
+# audiobookshelf_metadata; your audiobooks and podcasts stay in your shared
+# folders, mounted at their own paths so Audiobookshelf shows the paths you know.
+services:
+  server:
+    image: ${ABS_IMAGE:-ghcr.io/advplyr/audiobookshelf:2.37.1}
+    container_name: audiobookshelf-server
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-13378}:80"
+    volumes:
+      - config:/config
+      - metadata:/metadata
+      # Places for library folders, filled from the window (Libraries), each mounted at its own path:
+      # audiobooks read-only — the files are never changed — and podcasts writable, since
+      # Audiobookshelf downloads new episodes into them. A folder is never created if it's missing:
+      # its place gets an empty placeholder from this shared folder until the folder is there.
+      - type: bind
+        source: ${BOOKS_1_SRC:-./no-folder}
+        target: ${BOOKS_1_DST:-/no-folder/audiobooks-1}
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${BOOKS_2_SRC:-./no-folder}
+        target: ${BOOKS_2_DST:-/no-folder/audiobooks-2}
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${BOOKS_3_SRC:-./no-folder}
+        target: ${BOOKS_3_DST:-/no-folder/audiobooks-3}
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${BOOKS_4_SRC:-./no-folder}
+        target: ${BOOKS_4_DST:-/no-folder/audiobooks-4}
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${PODCASTS_1_SRC:-./no-folder}
+        target: ${PODCASTS_1_DST:-/no-folder/podcasts-1}
+        read_only: false
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${PODCASTS_2_SRC:-./no-folder}
+        target: ${PODCASTS_2_DST:-/no-folder/podcasts-2}
+        read_only: false
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${PODCASTS_3_SRC:-./no-folder}
+        target: ${PODCASTS_3_DST:-/no-folder/podcasts-3}
+        read_only: false
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${PODCASTS_4_SRC:-./no-folder}
+        target: ${PODCASTS_4_DST:-/no-folder/podcasts-4}
+        read_only: false
+        bind:
+          create_host_path: false
+    environment:
+      TZ: ${TZ:-UTC}
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:80/healthcheck || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  config:
+  metadata:

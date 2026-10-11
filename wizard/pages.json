@@ -1,0 +1,16 @@
+, {
+    "step_title": "Audiobookshelf",
+    "items": [{
+        "type": "textfield",
+        "desc": "Your audiobooks, one folder per book (or Author → Book). Audiobookshelf reads this folder only — your files are never changed. Usually a shared folder such as <b>/volume1/audiobooks</b> (File Station → right-click the folder → Properties shows its location). Leave it empty to add libraries later in the Audiobookshelf window.",
+        "subitems": [{ "key": "wizard_books_dir", "desc": "Audiobooks folder", "defaultValue": "/volume1/audiobooks", "validator": { "allowBlank": true, "regex": { "expr": "/^\\\\/volume[0-9]+\\\\/[^\\\\n]+\$/", "errorText": "A folder like /volume1/audiobooks" } } }]
+    }, {
+        "type": "textfield",
+        "desc": "Podcasts, one folder per show. Audiobookshelf downloads new episodes into it, so this folder is writable. Optional.",
+        "subitems": [{ "key": "wizard_podcasts_dir", "desc": "Podcasts folder", "defaultValue": "", "validator": { "allowBlank": true, "regex": { "expr": "/^\\\\/volume[0-9]+\\\\/[^\\\\n]+\$/", "errorText": "A folder like /volume1/podcasts" } } }]
+    }, {
+        "type": "textfield",
+        "desc": "The package makes your Audiobookshelf account at the first start — the server's main (root) account — with a strong password shown once in the Audiobookshelf window in DSM.",
+        "subitems": [{ "key": "wizard_admin_user", "desc": "Your username", "defaultValue": "", "validator": { "allowBlank": false, "regex": { "expr": "/^[A-Za-z0-9][A-Za-z0-9._-]{0,31}\$/", "errorText": "Letters, digits, dot, dash, underscore — up to 32" } } }]
+    }]
+}

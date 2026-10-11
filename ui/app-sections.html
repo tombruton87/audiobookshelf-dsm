@@ -1,0 +1,35 @@
+    <section data-page="libraries" hidden>
+      <div class="note">What <a class="abs-link" href="#" target="_blank" rel="noopener">Audiobookshelf</a> has found in your shared folders. Audiobook folders are read-only — your files are never changed; podcast folders are writable, because new episodes are downloaded into them. New files are noticed as they arrive.</div>
+      <div class="note warn" id="lb-key" hidden></div>
+      <div class="tiles" id="lb-tiles"></div>
+      <div class="card"><h2>Libraries<span class="right"><button class="btn" id="lb-scan-all" data-app>Scan all</button></span></h2><table class="nwh"><thead><tr><th>Library</th><th class="n">Items</th><th class="n">Size</th><th>Last scan</th><th class="n"></th></tr></thead><tbody id="lb-list"></tbody></table></div>
+      <div class="card"><h2>Add a library</h2><div class="in">
+        <p class="muted small">A shared folder on this Synology, like <code>/volume1/audiobooks</code> (File Station → right-click the folder → Properties shows its location). Audiobooks go one folder per book, or Author → Book; podcasts one folder per show. A folder that isn't there is refused, never created.</p>
+        <label class="f"><span>Name</span><input type="text" id="la-name" placeholder="Audiobooks" maxlength="64"></label>
+        <label class="f"><span>Holds</span><select id="la-type"><option value="book">Audiobooks (read-only)</option><option value="podcast">Podcasts (writable: new episodes are downloaded into it)</option></select></label>
+        <label class="f"><span>Folder</span><input type="text" id="la-dir" placeholder="/volume1/audiobooks"></label>
+        <p class="muted small" id="la-free"></p>
+        <button class="btn primary" id="la-add" data-app>Add the library</button></div></div>
+    </section>
+
+    <section data-page="phones" hidden>
+      <div class="note">Audiobookshelf's own app keeps your place in every book and podcast in sync with the web player and your other devices, and downloads for listening offline. Point it at the address below and sign in with your Audiobookshelf username and password.</div>
+      <div class="card"><h2>Set up a phone</h2><div class="in" style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start">
+        <img id="ph-qr" class="qr" alt="QR code of the server address">
+        <div style="flex:1;min-width:260px"><div class="mono-box" id="ph-url"></div><p class="muted small" id="ph-reach"></p>
+          <table class="apps"><tbody>
+            <tr><td class="k">Android</td><td>Audiobookshelf, the official app — Google Play (free)</td></tr>
+            <tr><td class="k">iPhone and iPad</td><td>Audiobookshelf, the official app — Apple's TestFlight beta (free, when there's room); or ShelfPlayer and plappa from the App Store</td></tr>
+            <tr><td class="k">Computer</td><td>The web player at the address; it also installs as an app from the browser</td></tr>
+          </tbody></table>
+          <p class="muted small">Scanning the code with the phone's camera opens the web player, which works as an app too (Add to Home Screen).</p></div></div></div>
+    </section>
+
+    <section data-page="users" hidden>
+      <div class="note">Everyone who can listen. Each person has their own listening progress, bookmarks and playlists, kept in step across their devices. Administrators can also manage Audiobookshelf.</div>
+      <div class="card"><table class="nwh"><thead><tr><th>User</th><th>Role</th><th>Last listened</th><th class="n"></th></tr></thead><tbody id="users"></tbody></table></div>
+      <div class="card"><h2>Add someone</h2><div class="in">
+        <label class="f"><span>Username</span><input type="text" id="nu-name" placeholder="sam" maxlength="32"></label>
+        <label class="f"><span>Role</span><select id="nu-role"><option value="user">Listener</option><option value="admin">Administrator</option></select></label>
+        <button class="btn primary" id="nu-add" data-app>Add</button><p class="muted small">The password is made for them and shown once.</p></div></div>
+    </section>
